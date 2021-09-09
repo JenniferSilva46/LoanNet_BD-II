@@ -135,10 +135,31 @@ const loginUser = async (req, res) => {
     }
 };
 
+
+// const getUserId = async (req, res) =>{
+
+//     try{
+//         const users = clientMongo.db(`${process.env.MONGO_DATABASE}`).collection('user');
+//         const filter = {
+//             email: req.body.email
+//         };
+        
+//         const user = []
+//         await users.find(filter).forEach(obj => user.push(obj));
+//         if (user.length > 0) {
+//             const teste = user[0]._id
+//             console.log(teste.toString())
+//             return teste.toString()
+//         }
+//     } catch (err) {
+//         res.send(err);
+//     }
+// }
+
 module.exports = {
     createUser,
     getUser,
     updateUser,
     delUser,
-    loginUser,
+    loginUser
 };
