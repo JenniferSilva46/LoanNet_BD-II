@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +15,7 @@
     "install": "^0.13.0",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.1.1",
+    "neo4j-driver": "^4.3.3",
     "nodemon": "^2.0.12",
     "pg": "^8.7.1"
   },
