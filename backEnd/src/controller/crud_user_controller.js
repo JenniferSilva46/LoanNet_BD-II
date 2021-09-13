@@ -10,8 +10,6 @@ const createUser = async (req, res) => {
         email: req.body.email,
         password: req.body.password,
         name: req.body.name,
-        andress: req.body.andress,
-        city: req.body.city,
         phone: req.body.phone
     }
     try {
@@ -25,7 +23,6 @@ const createUser = async (req, res) => {
         res.send(err);
     }
 };
-
 
 const getUser = async (req, res) => {
     //Verificando se o token do usuário é valido 
@@ -56,6 +53,7 @@ const getUser = async (req, res) => {
         res.send(err)
     }
 };
+
 
 const updateUser = async (req, res) => {
     const filter = {
@@ -118,7 +116,7 @@ const loginUser = async (req, res) => {
         if (user.length > 0) {
             // Gerando token de login por 4 horas
             const token = jwt.sign({
-                userId: filter.email
+                userId: user[0]._id
             }, SECRET, {
                 expiresIn: 14400
             })
@@ -127,11 +125,11 @@ const loginUser = async (req, res) => {
                 token
             })
         } else {
-            res.send('User does not exist or password incorrect!');
+            res.json('User does not exist or password incorrect!');
         }
 
     } catch (err) {
-        res.send(err)
+        res.send("erro")
     }
 };
 
@@ -143,7 +141,7 @@ const loginUser = async (req, res) => {
 //         const filter = {
 //             email: req.body.email
 //         };
-        
+
 //         const user = []
 //         await users.find(filter).forEach(obj => user.push(obj));
 //         if (user.length > 0) {
