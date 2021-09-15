@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Cadstro de Livros</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+  <link rel="stylesheet" href="./style/style.css" />
+  <script src="script.js"></script>
+</head>
+
+<body>
+  <section class="nav-menu">
+    <div class="logo">
+      <img src="../img/logo.svg" alt="">
+    </div>
+    <nav class="nav-menu-pages">
+      <ul>
+        <li><a href="#"> Home </a>
+          <div class="linha"></div>
+        </li>
+        <li><a href="#"> Livros </a></li>
+        <li><a href="#"> Perfil </a></li>
+        <li><a href="#"> Contato </a></li>
+      </ul>
+
+    </nav>
+
+    <nav class="nav-pesquisa">
+      <form action=" " method="get">
+        <input type="search" placeholder="Buscar" id="busca"> <img src="../img/lupa.png" alt="">
+        </label>
+      </form>
+
+  </section>
+
+  <div class="container">
+
+    <div class="form-book">
+      <h1 class="title-book">Cadastro de Livros</h1>
+      <form action="" method="post">
+        <label>
+          <input type="text" placeholder="" id="image" />
+          <p>Image</p>
+        </label>
+
+        <label>
+          <input type="text" placeholder="" id="title" />
+          <p>Título</p>
+        </label>
+
+        <label>
+          <input type="text" placeholder="" id="author" />
+          <p>Autor</p>
+        </label>
+
+        <label>
+          <input type="tel" placeholder="" id="contact" />
+          <p>Telefone(xx) xxxxx-xxxx</p>
+        </label>
+
+        <label>
+          <input type="text" placeholder="" id="genre" />
+          <p>Gênero</p>
+        </label>
+
+        <label>
+          <textarea id="synopsis" name="synopsis" rows="10" cols="10">
+              </textarea>
+          <p class="synopsis">Sinopse</p>
+        </label>
+
+        <button type="submit" id="submit" onclick="save()">Cadastrar</button>
+      </form>
+    </div>
+
+
+    <div id="map"></div>
+  </div>
+  <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&libraries=&v=weekly" async></script>
+
+</html>
