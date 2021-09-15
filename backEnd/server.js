@@ -24,10 +24,11 @@ app.put('/user/update', userMongo.updateUser);
 app.delete('/user/deleteUse', userMongo.delUser);
 app.post('/user/login', userMongo.loginUser);
 
-app.post('/book', book.createdBook);
-app.get('/book', book.getBook);
+app.post('/book/create', book.createdBook);
+app.post('/book/get', book.getBook);
 app.put('/book', book.updateBook);
 app.delete('/book', book.deleteBook);
+app.get('/book/getAll', book.getAllBook);
 
 app.post('/loan/sender', book_loan.createSender);
 app.post('/loan/addressee', book_loan.createAddressee);

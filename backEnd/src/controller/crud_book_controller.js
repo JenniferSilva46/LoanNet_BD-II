@@ -46,6 +46,23 @@ const getBook = async (request, response) => {
 
     });
 }
+const getAllBook = async (request, response) => {
+
+    await pool.query('SELECT * FROM Book',
+        (err, results) => {
+        
+        if (err) {
+            response.status(400).send(err);
+
+        } else if (results.rowCount== 0) {
+            response.status(200).json({message: "There is no registered book"});
+
+        } else {
+            response.status(200).json(results.rows);
+        }
+
+    });
+}
 
 
 const updateBook = async (request, response) => {
@@ -93,5 +110,6 @@ module.exports = {
     createdBook,
     getBook,
     updateBook,
-    deleteBook
+    deleteBook,
+    getAllBook
 }
