@@ -1,13 +1,16 @@
 const pool = require('../database/postgres');
 
 const createdBook = async (request, response) => {
-    
-    const {id_user, title, author, genre, synopsis} = request.body;
+    //falta o id_user
+    const {image, title, author, genre, synopsis, lat, lng} = request.body;
 
-    await pool.query('INSERT INTO Book (id_user, title, author, genre, synopsis) VALUES ($1, $2, $3, $4, $5 )', 
-        [id_user, title, author, genre, synopsis], (err, results) => {
+    const query = `INSERT INTO Book (image, title, author, genre, synopsis, localization) 
+                VALUES ('${image}','${title}', '${author}', '${genre}', '${synopsis}',
+                ST_GeomFromText('POINT(${lat} ${lng})'))`;
+
+    await pool.query(query, (err, results) => {
         if (err) {
-            if (err.detail) {
+            if (err) {
                 response.status(400).send({ message: "Already Exists" });
                 return
             }
@@ -16,7 +19,7 @@ const createdBook = async (request, response) => {
         response.status(201).send({
             message: "Book added successfully!",
             body: {
-                user: { id_user, title, author, genre, synopsis }
+                user: { id_user, title, author, genre, synopsis, location}
             },
         });
     });

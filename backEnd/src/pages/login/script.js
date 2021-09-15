@@ -9,7 +9,6 @@ button.addEventListener("click", event => {
 });
 
 const fetchData = (obj) => {
-    // const url = 'http://localhost:8080/user/login'
     fetch("http://localhost:8080/user/login", {
             method: 'POST',
             headers: {
