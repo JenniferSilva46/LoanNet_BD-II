@@ -2,9 +2,14 @@ const {
     clientMongo
 } = require('../database/mongo');
 
+const bcryptjs = require("bcryptjs");
 const jwt = require('jsonwebtoken');
-
 SECRET = process.env.SECRET;
+
+const gerarHash = async (password) => {
+    return await bcryptjs.hashSync(password, 10);
+}
+
 const createUser = async (req, res) => {
     const userObj = {
         email: req.body.email,
@@ -12,6 +17,8 @@ const createUser = async (req, res) => {
         name: req.body.name,
         phone: req.body.phone
     }
+    userObj.password = await gerarHash(userObj.password);
+    console.log(userObj.password);
     try {
         const users = clientMongo.db(`${process.env.MONGO_DATABASE}`).collection('user');
         await users.insertOne(userObj).then(() => {
@@ -34,6 +41,8 @@ const getUser = async (req, res) => {
         }).end;
 
         req.userId = decoded.userId;
+        // console.log(req.userId);
+
     })
     try {
         const users = clientMongo.db(`${process.env.MONGO_DATABASE}`).collection('user');
@@ -41,7 +50,7 @@ const getUser = async (req, res) => {
             email: req.body.email
         };
         const user = []
-        await users.find(filter).forEach(obj => user.push(obj));
+        await users.find().forEach(obj => user.push(obj));
 
         if (user.length > 0) {
             res.send(user);
@@ -109,21 +118,30 @@ const loginUser = async (req, res) => {
         const users = clientMongo.db(`${process.env.MONGO_DATABASE}`).collection('user');
         const filter = {
             email: req.body.email,
-            password: req.body.password
+
         };
+        const password = {
+            password: req.body.password
+        }
+
         const user = []
         await users.find(filter).forEach(obj => user.push(obj));
+
         if (user.length > 0) {
-            // Gerando token de login por 4 horas
-            const token = jwt.sign({
-                userId: user[0]._id
-            }, SECRET, {
-                expiresIn: 14400
-            })
-            return res.json({
-                auth: true,
-                token
-            })
+            if (bcryptjs.compareSync(password.password, user[0].password)) {
+                // Gerando token de login por 4 horas
+                const token = jwt.sign({
+                    userId: user[0]._id
+                }, SECRET, {
+                    expiresIn: 14400
+                })
+                return res.json({
+                    auth: true,
+                    email: filter.email,
+                    token
+                })
+            }
+
         } else {
             res.json('User does not exist or password incorrect!');
         }
@@ -151,6 +169,25 @@ const loginUser = async (req, res) => {
 //         }
 //     } catch (err) {
 //         res.send(err);
+//     }
+// }
+
+// async function getUserId(email) {
+//     try {
+//         const users = clientMongo.db(`${process.env.MONGO_DATABASE}`).collection('user');
+//         const filter = {
+//             email: email
+//         };
+
+//         const user = []
+//         await users.find(filter).forEach(obj => user.push(obj));
+//         if (user.length > 0) {
+//             const teste = user[0]._id
+//             console.log(teste.toString())
+//             return teste.toString()
+//         }
+//     } catch (err) {
+//         return err
 //     }
 // }
 

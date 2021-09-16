@@ -20,7 +20,7 @@ const fetchData = (obj) => {
         .then(res => res.json())
         .then(data => {
             if (data.auth == true) {
-                alert("Logado com sucesso!");
+                alert("Logado com sucesso!" + data.token);
             } else if (data) {
                 alert(data)
             }
