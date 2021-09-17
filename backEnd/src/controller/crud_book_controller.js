@@ -1,73 +1,71 @@
-const pool = require('../database/postgres');
+const client = require('../database/postgres');
 
 const jwt = require('jsonwebtoken');
 SECRET = process.env.SECRET;
-// const getUser = require('./crud_user_controller');
-// console.log(getUser.getUserId("jennifer@gmail.com"));
+
 const createdBook = async (request, response) => {
+   
     let id;
     //Verificando se o token do usuário é valido 
     const token = request.headers['x-access-token'];
-    jwt.verify(token, SECRET, (err, decoded) => {
+    await jwt.verify(token, SECRET, (err, decoded) => {
         if (err) return response.status(401).json({
             message: 'Token inválido'
         }).end;
 
         request.userId = decoded.userId;
         id = request.userId;
-        console.log(request.userId);
 
     })
-    //falta o id_user
-    const id_user = id;
-    console.log(id_user);
+    // //falta o id_user
+
+
+    const id_user = id.toString();
+
     const {
-        image,
-        title,
+        image, 
+        title, 
         author,
         genre,
         synopsis,
-        lat,
-        lng
+        lat,        
+        lng,
     } = request.body;
 
-    const query = `INSERT INTO Book (id_user,image, title, author, genre, synopsis, localization)
-                VALUES ('${id_user}',${image}','${title}', '${author}', '${genre}', '${synopsis}',
-                ST_GeomFromText('POINT(${lat} ${lng})'))`;
+    console.log(image);
 
-    await pool.query(query, (err, results) => {
-        if (err) {
-            if (err) {
-                response.status(400).send({
-                    message: "Already Exists"
-                });
-                return
-            }
+    await client.query(`INSERT INTO book (id_user, image, title, author, genre, synopsis, localization)
+    VALUES ('${id_user}', '${image}', '${title}', '${author}', '${genre}', '${synopsis}', ST_GeomFromText('POINT(${lat} ${lng})'))`,(err, results) => {
+        if(err){
             response.status(400).send(err);
+            console.log(err);
+            return;
         }
-        response.status(201).send({
-            message: "Book added successfully!",
-            body: {
-                user: {
-                    id_user,
-                    title,
-                    author,
-                    genre,
-                    synopsis,
-                    localizantion
-                }
-            },
-        });
+        response.status(200).send('Inserido');
     });
 }
 
 
 
 const getBook = async (request, response) => {
+    
+    let id;
+    //Verificando se o token do usuário é valido 
+    const token = request.headers['x-access-token'];
+    await jwt.verify(token, SECRET, (err, decoded) => {
+        if (err) return response.status(401).json({
+            message: 'Token inválido'
+        }).end;
 
-    const id_user = request.body.id_user;
+        request.userId = decoded.userId;
+        id = request.userId;
 
-    await pool.query('SELECT * FROM Book WHERE id_user = $1',
+    })
+    // //falta o id_user
+
+    const id_user = id.toString();
+
+    await client.query('SELECT * FROM Book WHERE id_user = $1',
         [id_user], (err, results) => {
 
             if (err) {
@@ -86,7 +84,7 @@ const getBook = async (request, response) => {
 }
 const getAllBook = async (request, response) => {
 
-    await pool.query('SELECT * FROM Book',
+    await client.query('SELECT * FROM Book',
         (err, results) => {
 
             if (err) {
@@ -107,15 +105,31 @@ const getAllBook = async (request, response) => {
 
 const updateBook = async (request, response) => {
 
+
+    let id;
+    //Verificando se o token do usuário é valido 
+    const token = request.headers['x-access-token'];
+    await jwt.verify(token, SECRET, (err, decoded) => {
+        if (err) return response.status(401).json({
+            message: 'Token inválido'
+        }).end;
+
+        request.userId = decoded.userId;
+        id = request.userId;
+
+    })
+    // //falta o id_user
+
+    const id_user = id.toString();
+
     const {
         title,
         author,
         genre,
-        synopsis,
-        id_user
+        synopsis
     } = request.body;
 
-    await pool.query('UPDATE Book SET title = $1, author = $2, genre = $3, synopsis = $4 WHERE id_user= $5',
+    await client.query('UPDATE Book SET title = $1, author = $2, genre = $3, synopsis = $4 WHERE id_user= $5',
         [title, author, genre, synopsis, id_user], (err, results) => {
 
             if (err) {
@@ -139,9 +153,26 @@ const updateBook = async (request, response) => {
 
 const deleteBook = async (request, response) => {
 
-    const id_user = request.body.id_user;
 
-    await pool.query('DELETE FROM Book WHERE id_user = $1', [id_user], (err, results) => {
+    let id;
+    //Verificando se o token do usuário é valido 
+    const token = request.headers['x-access-token'];
+    await jwt.verify(token, SECRET, (err, decoded) => {
+        if (err) return response.status(401).json({
+            message: 'Token inválido'
+        }).end;
+
+        request.userId = decoded.userId;
+        id = request.userId;
+
+    })
+    // //falta o id_user
+
+    const id_user = id.toString();
+    console.log(id_user);
+
+
+    await client.query('DELETE FROM Book WHERE id_user = $1', [id_user], (err, results) => {
         if (err) {
             response.status(400).send(err);
 
