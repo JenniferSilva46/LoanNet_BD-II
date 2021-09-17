@@ -25,7 +25,7 @@ app.delete('/user/deleteUse', userMongo.delUser);
 app.post('/user/login', userMongo.loginUser);
 
 app.post('/book/create', book.createdBook);
-app.post('/book/get', book.getBook);
+app.get('/book/get', book.getBook);
 app.put('/book', book.updateBook);
 app.delete('/book', book.deleteBook);
 app.get('/book/getAll', book.getAllBook);
