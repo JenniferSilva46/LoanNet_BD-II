@@ -20,6 +20,7 @@ const fetchData = (obj) => {
         .then(res => res.json())
         .then(data => {
             if (data.auth == true) {
+                localStorage.setItem("token", data.token);
                 alert("Logado com sucesso!" + data.token);
             } else if (data) {
                 alert(data)

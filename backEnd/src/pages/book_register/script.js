@@ -4,7 +4,10 @@
 let map;
 let marker;
 
-let center = { lat: -9.826044705294152, lng: -56.56730846033254 };
+let center = {
+  lat: -9.826044705294152,
+  lng: -56.56730846033254
+};
 
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
@@ -39,19 +42,20 @@ function save() {
     author: document.getElementById("author").value,
     contact: document.getElementById("contact").value,
     genre: document.getElementById("genre").value,
-    synopsis: document.getElementById("checkout").value,
+    synopsis: document.getElementById("synopsis").value,
     lat: marker.getPosition().lat(),
     lng: marker.getPosition().lng()
   };
 
-  fetch("http://localhost:8080/book", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(obj),
-  })
+  fetch("http://localhost:8080/book/create", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        'Content-Type': 'application/json',
+        'x-acess-token': localStorage.getItem("token")
+      },
+      body: JSON.stringify(obj),
+    })
     .then((response) => {
       alert("Inserido!");
     })

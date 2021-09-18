@@ -4,10 +4,9 @@ const jwt = require('jsonwebtoken');
 SECRET = process.env.SECRET;
 
 const createdBook = async (request, response) => {
-   
     let id;
     //Verificando se o token do usuário é valido 
-    const token = request.headers['x-access-token'];
+    const token = localStorage.getItem('token');
     await jwt.verify(token, SECRET, (err, decoded) => {
         if (err) return response.status(401).json({
             message: 'Token inválido'
@@ -15,28 +14,21 @@ const createdBook = async (request, response) => {
 
         request.userId = decoded.userId;
         id = request.userId;
-
     })
     // //falta o id_user
-
-
     const id_user = id.toString();
-
     const {
-        image, 
-        title, 
+        image,
+        title,
         author,
         genre,
         synopsis,
-        lat,        
+        lat,
         lng,
     } = request.body;
-
-    console.log(image);
-
     await client.query(`INSERT INTO book (id_user, image, title, author, genre, synopsis, localization)
-    VALUES ('${id_user}', '${image}', '${title}', '${author}', '${genre}', '${synopsis}', ST_GeomFromText('POINT(${lat} ${lng})'))`,(err, results) => {
-        if(err){
+    VALUES ('${id_user}', '${image}', '${title}', '${author}', '${genre}', '${synopsis}', ST_GeomFromText('POINT(${lat} ${lng})'))`, (err, results) => {
+        if (err) {
             response.status(400).send(err);
             console.log(err);
             return;
@@ -45,10 +37,8 @@ const createdBook = async (request, response) => {
     });
 }
 
-
-
 const getBook = async (request, response) => {
-    
+
     let id;
     //Verificando se o token do usuário é valido 
     const token = request.headers['x-access-token'];

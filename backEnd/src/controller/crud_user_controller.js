@@ -6,6 +6,11 @@ const bcryptjs = require("bcryptjs");
 const jwt = require('jsonwebtoken');
 SECRET = process.env.SECRET;
 
+if (typeof localStorage === "undefined" || localStorage === null) {
+    const LocalStorage = require('node-localstorage').LocalStorage;
+    localStorage = new LocalStorage('./scratch');
+}
+
 const gerarHash = async (password) => {
     return await bcryptjs.hashSync(password, 10);
 }
@@ -135,6 +140,9 @@ const loginUser = async (req, res) => {
                 }, SECRET, {
                     expiresIn: 14400
                 })
+                //sessionStorage.setItem('token', token)
+                localStorage.setItem('token', token);
+                console.log(localStorage.getItem('token'));
                 return res.json({
                     auth: true,
                     email: filter.email,
