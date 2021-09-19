@@ -37,26 +37,15 @@ const createUser = async (req, res) => {
 };
 
 const getUser = async (req, res) => {
-    //Verificando se o token do usuário é valido 
-    const token = req.headers['x-access-token'];
-
-    jwt.verify(token, SECRET, (err, decoded) => {
-        if (err) return res.status(401).json({
-            message: 'Token inválido'
-        }).end;
-
-        req.userId = decoded.userId;
-        // console.log(req.userId);
-
-    })
     try {
         const users = clientMongo.db(`${process.env.MONGO_DATABASE}`).collection('user');
         const filter = {
-            email: req.body.email
+            email: req.params.email
         };
+        console.log(filter);
         const user = []
-        await users.find().forEach(obj => user.push(obj));
-
+        await users.find(filter).forEach(obj => user.push(obj));
+        user[0].password = undefined;
         if (user.length > 0) {
             res.send(user);
         } else {

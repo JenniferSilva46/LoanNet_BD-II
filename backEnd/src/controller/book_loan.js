@@ -47,7 +47,9 @@
              idUser: obj.idUser
          }).then(result => {
              if (result.summary.counters._stats.relationshipsCreated > 0) {
-                 res.send("success");
+                 return res.json({
+                     loan: true
+                 });
              } else {
                  console.log(res.send("Fail"))
              }
@@ -63,6 +65,7 @@
          idBook: req.body.idBook,
          idUser: req.body.idUser
      };
+     console.log(obj);
      await session.run('MATCH (p1:sender{idBook:$idBook})-[p2]-(p3:addressee{idUser:$idUser}) DELETE p1,p2,p3', {
              idBook: obj.idBook,
              idUser: obj.idUser
