@@ -15,7 +15,7 @@ const createdBook = async (request, response) => {
         request.userId = decoded.userId;
         id = request.userId;
     })
-    // //falta o id_user
+
     const id_user = id.toString();
     const {
         image,
@@ -43,7 +43,7 @@ const getBook = async (request, response) => {
 
     let id;
     //Verificando se o token do usuário é valido 
-    const token = request.headers['x-access-token'];
+    const token = localStorage.getItem('token');
     await jwt.verify(token, SECRET, (err, decoded) => {
         if (err) return response.status(401).json({
             message: 'Token inválido'
@@ -51,9 +51,8 @@ const getBook = async (request, response) => {
 
         request.userId = decoded.userId;
         id = request.userId;
-
     })
-    // //falta o id_user
+   
 
     const id_user = id.toString();
 
