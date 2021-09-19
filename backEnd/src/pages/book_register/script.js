@@ -40,6 +40,7 @@ function save() {
     image: document.getElementById("image").value,
     title: document.getElementById("title").value,
     author: document.getElementById("author").value,
+    nameContact: document.getElementById("nameContact").value,
     contact: document.getElementById("contact").value,
     genre: document.getElementById("genre").value,
     synopsis: document.getElementById("synopsis").value,

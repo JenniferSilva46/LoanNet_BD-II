@@ -21,13 +21,15 @@ const createdBook = async (request, response) => {
         image,
         title,
         author,
+        nameContact,
+        contact,
         genre,
         synopsis,
         lat,
         lng,
     } = request.body;
-    await client.query(`INSERT INTO book (id_user, image, title, author, genre, synopsis, localization)
-    VALUES ('${id_user}', '${image}', '${title}', '${author}', '${genre}', '${synopsis}', ST_GeomFromText('POINT(${lat} ${lng})'))`, (err, results) => {
+    await client.query(`INSERT INTO book (id_user, image, title, author, nameContact, contact,  genre, synopsis, localization)
+    VALUES ('${id_user}', '${image}', '${title}', '${author}', '${nameContact}','${contact}','${genre}', '${synopsis}', ST_GeomFromText('POINT(${lat} ${lng})'))`, (err, results) => {
         if (err) {
             response.status(400).send(err);
             console.log(err);
@@ -74,7 +76,7 @@ const getBook = async (request, response) => {
 }
 const getAllBook = async (request, response) => {
 
-    await client.query('SELECT * FROM Book',
+    await client.query('SELECT id_user, image, title, author, nameContact, contact,  genre, synopsis, ST_x(localization), ST_y(localization) FROM book',
         (err, results) => {
 
             if (err) {

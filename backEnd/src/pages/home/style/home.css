@@ -156,3 +156,25 @@ a {
 .card-livro strong {
     margin-bottom: 2%;
 }
+
+.body-detail {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+
+    background: #8e9597;
+}
+
+.button-model {
+    padding-left: 1rem;
+}
+
+
+.map {
+    width: 47vw;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+
+    border-radius: 16px;
+}
