@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <title>Meus Livros</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link rel="stylesheet" href="./style/style.css" />
+</head>
+
+<body>
+    <section class="nav-menu">
+        <div class="logo">
+            <img src="../img/logo.svg" alt="">
+        </div>
+        <nav class="nav-menu-pages">
+
+            <ul>
+                <li><a href="../home/home.html"> Home </a>
+                </li>
+                <li><a href="../mybooks/mybooks.html"> Meus Livros </a>
+                    <div class="linha"></div>
+                </li>
+                <li><a href="../profile/profile.html"> Perfil </a></li>
+                <li><a href="#"> Contato </a></li>
+            </ul>
+
+        </nav>
+
+        <nav class="nav-pesquisa">
+            <form action=" " method="get">
+                <input type="search" placeholder="Buscar" id="busca"> <img src="../img/lupa.png" alt="">
+                </label>
+            </form>
+    </section>
+
+    <section>
+        <div class="page-myBooks">
+            <h2>Clique no livro que deseja emprestar, em seguida insira o email do destinatário</h2>
+
+            <div id="email">
+                <form action=" " method="get">
+                    <input type="email" placeholder="Digite o email" id="emailUser">
+                </form>
+
+                <div class="btn-email">
+                    <div>
+                        <button id="buttonEmail" type="submit">Confirmar</button>
+                    </div>
+                    
+                    <div id="btn-conf">
+                        <button id="buttonConf" type="submit">Estou certo disso!</button>
+                    </div>
+
+                </div>
+               
+            </div>
+            
+        </div>
+      
+        <section class="livros">
+
+        </section>
+
+    </section>
+
+    <script src="./script.js"></script>
+
+</body>
+
+</html>
