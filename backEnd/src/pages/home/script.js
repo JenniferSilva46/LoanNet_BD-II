@@ -44,6 +44,8 @@ const createBookDetail = (salvo) => {
     const bodyDetail = document.createElement('div');
     const buttonDetail = document.createElement('button');
     //    buttonDetail.setAttribute('onclick')
+    console.log(salvo);
+    
 
     buttonDetail.textContent = "X"
     document.querySelector('.livros').appendChild(bodyDetail);
@@ -52,6 +54,9 @@ const createBookDetail = (salvo) => {
     bodyDetail.appendChild(buttonDetail);
     document.querySelector(".body-detail").style.display = "block";
     buttonDetail.addEventListener('click', createModel);
+    const titleMap = document.createElement('h4');
+    titleMap.textContent="Localição do Usuário, clique no marcador para aproximar"
+    bodyDetail.appendChild(titleMap)
     const mapGoogle = document.createElement('div');
     bodyDetail.appendChild(mapGoogle);
     mapGoogle.classList.add("map");
@@ -72,22 +77,21 @@ const createModel = () => {
 }
 
 const structModel = (obj) => {
-    console.log(obj);
     const cardlivro = document.createElement('div');
     const img = document.createElement('img');
     const titulo = document.createElement('h3');
-    const nameContact = document.createElement('strong');
+    const nameContact = document.createElement('h3');
     const contact = document.createElement('h3');
     const author = document.createElement('h3');
-    const genre = document.createElement('strong');
+    const genre = document.createElement('h3');
     const sinopse = document.createElement('strong');
     img.src = obj.image
-    titulo.textContent = obj.title
-    nameContact.textContent = obj.nameContact
-    contact.textContent = ":" + obj.contact
-    author.textContent = obj.author
-    genre.textContent = obj.genre
-    sinopse.textContent = obj.synopsis
+    titulo.textContent = "Título: " + obj.title
+    nameContact.textContent = "Nome para contato: " + obj.namecontact
+    contact.textContent = "Telefone: " + obj.contact
+    author.textContent = "Autor: " + obj.author
+    genre.textContent = "Género: " + obj.genre
+    sinopse.textContent = "Sinopse: " + obj.synopsis
     document.querySelector('.body-detail').appendChild(cardlivro);
     cardlivro.appendChild(img);
     cardlivro.appendChild(titulo);
@@ -96,7 +100,8 @@ const structModel = (obj) => {
     cardlivro.appendChild(author);
     cardlivro.appendChild(genre);
     cardlivro.appendChild(sinopse);
-    cardlivro.classList.add("card-livro");
+    cardlivro.classList.add("card-livro-model");
+    
 }
 
 const initMap = (obj) => {
@@ -110,9 +115,21 @@ const initMap = (obj) => {
         lng: obj.st_y
     }
     console.log(markerPoint);
-    new google.maps.Marker({
+    const marker = new google.maps.Marker({
         map: map,
         position: markerPoint
     })
+    map.addListener("center_changed", () => {
+        // 3 seconds after the center of the map has changed, pan back to the
+        // marker.
+        window.setTimeout(() => {
+          map.panTo(marker.getPosition());
+        }, 3000);
+      });
+      marker.addListener("click", () => {
+        map.setZoom(8);
+        map.setCenter(marker.getPosition());
+      });
+    
 
 }

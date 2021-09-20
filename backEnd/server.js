@@ -23,6 +23,7 @@ app.get('/user/getUser/:email', userMongo.getUser);
 app.put('/user/update', userMongo.updateUser);
 app.delete('/user/deleteUse', userMongo.delUser);
 app.post('/user/login', userMongo.loginUser);
+app.get('/user/getUserId', userMongo.getUserId);
 
 app.post('/book/create', book.createdBook);
 app.get('/book/getBook', book.getBook);

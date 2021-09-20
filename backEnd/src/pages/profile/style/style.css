@@ -135,12 +135,17 @@ a {
     height: 40%;
 }
 
+.data-user p{
+    margin-bottom: 1rem;
+}
+
 .btn{
     display: flex;
     justify-content: space-around;
 }
 
-.btn button{
+.btn a{
+    align-items: center;
     align-items: center;
     width: 31%;
     height: 2rem;
@@ -148,4 +153,6 @@ a {
     background: var(--primario);
     cursor: pointer;
     color: var(--secundario);
+    display: flex;
+    justify-content: center;
 }
