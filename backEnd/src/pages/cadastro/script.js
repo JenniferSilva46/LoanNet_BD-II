@@ -16,7 +16,8 @@ button.addEventListener("click", event => {
             },
             body: JSON.stringify(obj)
         }).then(res => {
-            alert('Inserido!')
+            alert('Inserido!');
+            window.location.href = "file:///home/jhenniferjs/Documentos/atividades-disciplinas-2021.1/bdII/LoanNet_BD-II/backEnd/src/pages/login/login.html"
         })
         .catch(error => alert('Falha ao salvar!'));
 });

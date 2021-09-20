@@ -1,6 +1,6 @@
 let objAddMatch;
 let objMatch;
-
+let isBoolean = false;
 const buscaLivro = () => {
   fetch("http://localhost:8080/book/getBook", {})
     .then((res) => res.json())
@@ -21,25 +21,26 @@ const createBook = (data) => {
     sinopse.textContent = element.synopsis;
     const buttonDevolution = document.createElement("button");
     buttonDevolution.textContent = "Devolvido";
+    cardlivro.appendChild(buttonDevolution);
+    buttonDevolution.classList.add("button-devolution");
     document.querySelector(".livros").appendChild(cardlivro);
     cardlivro.appendChild(img);
     cardlivro.appendChild(titulo);
     cardlivro.appendChild(sinopse);
-    cardlivro.appendChild(buttonDevolution);
     cardlivro.classList.add("card-livro");
-    buttonDevolution.classList.add("button-devolution");
 
     img.onclick = function () {
       const salvo = element;
       dataObj(salvo);
 
-      displayInput();
+      displayInput(salvo);
       document.querySelector("#btn-conf").style.display = "none";
     };
   });
 };
 
-const displayInput = () => {
+//exibir ou esconder o input e botão do email
+const displayInput = (obj) => {
   const buttonEmail = document.querySelector("#buttonEmail");
   if (document.querySelector("#email").style.display == "block") {
     document.querySelector("#email").style.display = "none";
@@ -47,14 +48,16 @@ const displayInput = () => {
   } else {
     document.querySelector("#email").style.display = "block";
     buttonEmail.onclick = () => {
-      displayButton();
+      const email = document.querySelector("#emailUser");
+      fetchAddressee(email.value);
+      displayButton(obj);
     }
   }
   return
 };
 
-
-const displayButton = () => {
+//exibir ou esconder o botão de estou certo
+const displayButton = (obj) => {
   const buttonConf = document.querySelector("#buttonConf");
   if (document.querySelector("#btn-conf").style.display == "block") {
     document.querySelector("#btn-conf").style.display = "none";
@@ -64,11 +67,17 @@ const displayButton = () => {
     const email = document.querySelector("#emailUser");
     buttonConf.onclick = () => {
       fetchAddressee(email.value);
+      // const cardlivro = document.querySelector(".card-livro");
+      // const buttonDevolution = document.createElement("button");
+      // buttonDevolution.textContent = "Devolvido";
+      // cardlivro.appendChild(buttonDevolution);
+      // buttonDevolution.classList.add("button-devolution");
     }
   }
   return
 }
 
+//criando obj do remetente
 const dataObj = (salvo) => {
   const obj = {
     idUser: salvo.id_user,
@@ -81,7 +90,7 @@ const dataObj = (salvo) => {
   }]
   fetchData(obj);
 }
-
+//Criar remetente
 const fetchData = (obj) => {
   fetch("http://localhost:8080/loan/sender", {
       method: "POST",
@@ -94,6 +103,7 @@ const fetchData = (obj) => {
     .then((res) => res.json())
 };
 
+//busca o usuário que vai ser o destinatario
 const fetchAddressee = (email) => {
   fetch(`http://localhost:8080/user/getUser/${email}`)
     .then((res) => res.json())
@@ -102,6 +112,7 @@ const fetchAddressee = (email) => {
     });
 }
 
+//criar o nó do destinatario
 const createAddressee = (obj) => {
   const objAddressee = {
     idUser: obj[0]._id,
@@ -128,6 +139,7 @@ const createAddressee = (obj) => {
   }
 }
 
+//Cria o relacionamento de emprestimo
 const createAddLoan = () => {
   objMatch = {
     idBook: objAddMatch[0].idBook,
@@ -145,7 +157,7 @@ const createAddLoan = () => {
     .then((res) => res.json())
     .then(response => {
       if (response.loan == true) {
-        devolutionBook()
+        devolutionBook();
       }
     })
 }

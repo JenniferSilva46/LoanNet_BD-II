@@ -27,7 +27,7 @@ const createUser = async (req, res) => {
     try {
         const users = clientMongo.db(`${process.env.MONGO_DATABASE}`).collection('user');
         await users.insertOne(userObj).then(() => {
-            res.send('success');
+            res.send("success")
         }).catch((err) => {
             res.send(err);
         });
@@ -173,8 +173,8 @@ const getUserId = async (req, res) => {
         const user = []
         await users.find().forEach(obj => user.push(obj));
 
-        user.forEach(function(obj, index){
-            if(user[index]._id == filter._id){
+        user.forEach(function (obj, index) {
+            if (user[index]._id == filter._id) {
                 user[0].password = undefined;
                 res.send(user[index]);
             }
