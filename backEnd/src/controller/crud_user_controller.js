@@ -149,6 +149,42 @@ const loginUser = async (req, res) => {
 };
 
 
+const getUserId = async (req, res) => {
+    let id;
+    //Verificando se o token do usuário é valido 
+    const token = localStorage.getItem('token');
+    await jwt.verify(token, SECRET, (err, decoded) => {
+        if (err) return response.status(401).json({
+            message: 'Token inválido'
+        }).end;
+
+        req.userId = decoded.userId;
+        id = req.userId;
+    })
+
+    const idUser = id.toString();
+
+    try {
+        const users = clientMongo.db(`${process.env.MONGO_DATABASE}`).collection('user');
+        const filter = {
+            _id: idUser
+        };
+        console.log(filter);
+        const user = []
+        await users.find().forEach(obj => user.push(obj));
+
+        user.forEach(function(obj, index){
+            if(user[index]._id == filter._id){
+                user[0].password = undefined;
+                res.send(user[index]);
+            }
+        })
+    } catch (err) {
+        res.send(err)
+    }
+};
+
+
 // const getUserId = async (req, res) =>{
 
 //     try{
@@ -193,5 +229,6 @@ module.exports = {
     getUser,
     updateUser,
     delUser,
-    loginUser
+    loginUser,
+    getUserId
 };
