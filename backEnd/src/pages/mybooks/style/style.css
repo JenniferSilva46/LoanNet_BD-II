@@ -212,7 +212,11 @@ button {
     margin-top: 1rem;
 }
 
-#buttonConf{
+/* .button-devolution {
+    display: none;
+} */
+
+#buttonConf, .button-devolution{
     align-items: center;
     width: 70%;
     height: 2rem;
@@ -222,4 +226,11 @@ button {
     color: var(--primario);
     font-size: 0.8rem;
     margin-top: 1rem;
+}
+
+.id-livro, .button-devolution {
+    display: none;
+}
+.myLoan {
+    width: 20rem;
 }

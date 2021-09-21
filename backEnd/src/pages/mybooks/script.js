@@ -1,4 +1,7 @@
 let objAddMatch;
+let arrayLoan = [];
+let arrayID = [];
+let arrayEmailLoan = [];
 let objMatch;
 let isBoolean = false;
 const buscaLivro = () => {
@@ -13,26 +16,31 @@ buscaLivro();
 const createBook = (data) => {
   data.forEach((element) => {
     const cardlivro = document.createElement("div");
+    const id = document.createElement("spam");
+    id.type = "text";
+    id.textContent = element.id_book;
     const img = document.createElement("img");
     img.src = element.image;
     const titulo = document.createElement("h3");
     titulo.textContent = element.title;
     const sinopse = document.createElement("strong");
     sinopse.textContent = element.synopsis;
-    const buttonDevolution = document.createElement("button");
-    buttonDevolution.textContent = "Devolvido";
-    cardlivro.appendChild(buttonDevolution);
-    buttonDevolution.classList.add("button-devolution");
+    const inputDevolution = document.createElement("input");
+    inputDevolution.type = "checkbox";
+    inputDevolution.classList.add("input-devolution");
     document.querySelector(".livros").appendChild(cardlivro);
     cardlivro.appendChild(img);
     cardlivro.appendChild(titulo);
     cardlivro.appendChild(sinopse);
+    cardlivro.appendChild(inputDevolution);
+    cardlivro.appendChild(id);
+    id.classList.add("id-livro");
     cardlivro.classList.add("card-livro");
+    titulo.classList.add("titulo-livro");
 
     img.onclick = function () {
       const salvo = element;
       dataObj(salvo);
-
       displayInput(salvo);
       document.querySelector("#btn-conf").style.display = "none";
     };
@@ -65,16 +73,12 @@ const displayButton = (obj) => {
   } else {
     document.querySelector("#btn-conf").style.display = "block";
     const email = document.querySelector("#emailUser");
-    buttonConf.onclick = () => {
+    buttonConf.addEventListener("click", event => {
       fetchAddressee(email.value);
-      // const cardlivro = document.querySelector(".card-livro");
-      // const buttonDevolution = document.createElement("button");
-      // buttonDevolution.textContent = "Devolvido";
-      // cardlivro.appendChild(buttonDevolution);
-      // buttonDevolution.classList.add("button-devolution");
-    }
+      document.querySelector("#email").style.display = "none";
+    })
   }
-  return
+
 }
 
 //criando obj do remetente
@@ -122,7 +126,6 @@ const createAddressee = (obj) => {
   objAddMatch[1] = {
     idUser: objAddressee.idUser
   };
-  console.log(objAddMatch);
   fetch("http://localhost:8080/loan/addressee", {
       method: "POST",
       headers: {
@@ -145,6 +148,9 @@ const createAddLoan = () => {
     idBook: objAddMatch[0].idBook,
     idUser: objAddMatch[1].idUser
   }
+  arrayLoan.push(objMatch);
+  console.log(arrayLoan);
+
   fetch("http://localhost:8080/loan/addLoan", {
       method: "POST",
       headers: {
@@ -157,25 +163,103 @@ const createAddLoan = () => {
     .then((res) => res.json())
     .then(response => {
       if (response.loan == true) {
-        devolutionBook();
+        loanVerifyc();
       }
     })
 }
 
-const devolutionBook = () => {
+//
+const loanVerifyc = () => {
+  document.querySelector(".id-devolution").style.display = "block";
+  document.querySelector(".button-devolution").style.display = "block";
+  const idRemove = document.querySelector(".id-livro");
+  const titleRemove = document.querySelector(".titulo-livro");
+  const livros = document.querySelectorAll(".livros");
+  livros.forEach((element) => {
+    const livro = document.querySelectorAll(".card-livro");
+    livro.forEach((element) => {
+      const id = document.querySelector(".id-livro").innerText
+      idRemove.classList.remove("id-livro");
+      const titleBook = document.querySelector(".titulo-livro").innerText
+      titleRemove.classList.remove("titulo-livro");
+      arrayLoan.forEach(function (obj, index) {
+        // console.log(arrayLoan[index].idBook + "id img" + arrayID[index]);
+        if (arrayID[index] != arrayLoan[index].idBook && id == arrayLoan[index].idBook) {
+          arrayID.push(id);
+          arrayEmailLoan.push(titleBook);
+        }
+      })
+    })
+    console.log(arrayID);
+    console.log(arrayEmailLoan);
+  })
+  idRemove.classList.add("id-livro");
+  titleRemove.classList.add("titulo-livro");
+
+  console.log(livros[0]);
+  const inputDevolution = document.querySelector(".id-devolution");
+  const listLoan = document.createElement("ul");
+  const listLoanLi = document.createElement("li");
+  const textDevolution = document.createElement("h3");
+  textDevolution.textContent = "Os livros que foram emprestados são:"
+  listLoan.appendChild(listLoanLi);
+  inputDevolution.appendChild(textDevolution);
+  inputDevolution.appendChild(listLoan);
+  //const buttonDevolution = document.createElement("button");
   const buttonDevolution = document.querySelector(".button-devolution");
-  buttonDevolution.onclick = function () {
-    fetch("http://localhost:8080/loan/delete", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(objMatch),
-      })
-      .then((res) => res.json())
-      .then(response => {
-        if (response.loan == true) {}
-      })
+  buttonDevolution.textContent = "Devolvido";
+  const idDevolution = document.querySelector(".id-devolution");
+
+  buttonDevolution.classList.add("button-devolution");
+  arrayEmailLoan.forEach((element, index) => {
+    listLoanLi.textContent = arrayEmailLoan[index];
+    inputDevolution.appendChild(listLoan);
+    idDevolution.appendChild(buttonDevolution);
+    listLoan.appendChild(listLoanLi);
+  })
+  // if (!inputDevolution.checked) {
+  //   inputDevolution.checked = true;
+  // }
+
+}
+const buttonDevolution = document.querySelector(".button-devolution");
+buttonDevolution.addEventListener("click", event => {
+  arrayLoan.forEach((element) => {
+    devolutionBook(element);
+    arrayLoan.shift();
+    console.log(arrayLoan);
+    console.log("arrayLoan");
+  })
+  if (arrayLoan.length == 0) {
+    arrayEmailLoan.splice(0, arrayEmailLoan.length);
+    arrayID.splice(0, arrayID.length);
+    console.log(arrayID);
+    console.log(arrayEmailLoan);
+    alert("Livros disponiveis para emprestimo!");
+    if (document.querySelector(".id-devolution").style.display == "block") {
+      document.querySelector(".id-devolution").style.display = "none";
+      // document.querySelector('.livros').removeChild(detail);
+    } else {
+      document.querySelector(".id-devolution").style.display = "block";
+    }
   }
+})
+
+const devolutionBook = (obj) => {
+  console.log(obj);
+  fetch("http://localhost:8080/loan/delete", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(obj),
+    })
+    .then((res) => res.json())
+    .then(response => {
+      if (response.loan == true) {
+        console.log("removeu");
+      }
+    })
+
 }
