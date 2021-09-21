@@ -16,7 +16,7 @@
 
 body {
     display: flex;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     background: var(--backgroud);
     flex-direction: column;
@@ -109,34 +109,63 @@ a {
     border-color: var(--secundario);
 }
 
+.header-mybooks {
+    width: 100%;
+    height: 100%;
+}
+
+
+.btn {
+    display: flex;
+    justify-content: space-around;
+
+    margin-top: 0.6rem;
+}
+
+.btn a {
+    align-items: center;
+    width: 10rem;
+    height: 3rem;
+    border-radius: 0.5rem;
+    background: var(--secundario);
+    cursor: pointer;
+    color: var(--primario);
+    display: flex;
+    justify-content: center;
+}
+
+
 .livros {
     display: flex;
     flex-direction: row;
     width: 100%;
+    height: 85%;
     justify-content: space-evenly;
     flex-wrap: wrap;
 }
 
 .card-livro {
     border-radius: 10px;
-    box-shadow: 0px 4px 4px #35484f;
+    box-shadow: 0px 4px 10px #35484f;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
     width: 300px;
+    height: 85%;
     margin-top: 3rem;
 }
 
 .card-livro img {
     cursor: pointer;
-    height: 300px;
+    height: 250px;
     width: 250px;
+    padding: 1rem;
+    border-radius: 30px;
 }
 
 .card-livro h3 {
     color: var(--secundario);
-    text-decoration: underline;
     text-align: center;
 }
 
@@ -144,10 +173,13 @@ a {
     margin-bottom: 2%;
     width: 90%;
     text-align: justify;
+    font-style: italic;
+    font-weight: 400;
 }
 
 
-#email, #btn-conf{
+#email,
+#btn-conf {
     display: none;
 }
 
@@ -156,20 +188,19 @@ button {
 }
 
 
-.page-myBooks{
+.page-myBooks {
     display: flex;
     flex-direction: column;
-    height: 25%;
     justify-content: space-evenly;
     align-items: center;
 }
 
-.page-myBooks h2{
+.page-myBooks h2 {
     margin-top: 3rem;
 }
 
 
-#emailUser{
+#emailUser {
     font-family: sans-serif;
     font-size: 1rem;
     background: transparent;
@@ -187,20 +218,20 @@ button {
     margin-top: 1rem;
 }
 
-.btn-email{
+.btn-email {
     display: flex;
-    width: 100%;    
+    width: 100%;
 }
 
-.btn-email div{
+.btn-email div {
     width: 50%;
 }
 
-#btn-conf{
+#btn-conf {
     text-align: end;
 }
 
-#buttonEmail{
+#buttonEmail {
     align-items: center;
     width: 70%;
     height: 2rem;
@@ -216,7 +247,8 @@ button {
     display: none;
 } */
 
-#buttonConf, .button-devolution{
+#buttonConf,
+.button-devolution {
     align-items: center;
     width: 70%;
     height: 2rem;
@@ -228,9 +260,11 @@ button {
     margin-top: 1rem;
 }
 
-.id-livro, .button-devolution {
+.id-livro,
+.button-devolution {
     display: none;
 }
+
 .myLoan {
     width: 20rem;
 }

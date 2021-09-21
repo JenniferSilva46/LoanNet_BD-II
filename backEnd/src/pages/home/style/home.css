@@ -133,7 +133,7 @@ a {
 
 .card-livro {
     border-radius: 10px;
-    box-shadow: 0px 4px 4px #35484f;
+    box-shadow: 0px 4px 10px #35484f;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -146,17 +146,21 @@ a {
     cursor: pointer;
     height: 300px;
     width: 250px;
+    padding: 1rem;
+    border-radius: 30px;
 }
 
 .card-livro h3 {
     color: var(--secundario);
-    text-decoration: underline;
+    text-align: center;
 }
 
 .card-livro strong {
     width: 90%;
     margin-bottom: 2%;
     text-align: justify;
+    font-style: italic;
+    font-weight: 400;
 }
 
 .body-detail {
@@ -169,9 +173,10 @@ a {
     height: 180vh;
     box-shadow: 4px 4px 4px 4px #35484f;
     background: #eee6e0f7;
-    
+
 }
-.body-detail h4{
+
+.body-detail h4 {
     font-size: 20px;
     margin-left: 32%;
     color: var(--secundario);
@@ -187,13 +192,15 @@ a {
     color: var(--primario);
 
 }
-.button-model:hover{
+
+.button-model:hover {
     background-color: rgb(139, 52, 68);
     color: var(--primario);
     box-shadow: 0px 4px 4px #35484f;
 
 }
-.card-livro-model{
+
+.card-livro-model {
     border-radius: 10px;
     box-shadow: 0px 4px 4px #35484f;
     width: 70%;
@@ -205,18 +212,28 @@ a {
     background-color: white;
     margin-left: 15%;
 }
-.card-livro-model img{
+
+.card-livro-model img {
     height: 300px;
     width: 250px;
 }
-.card-livro-model h3{
+
+.card-livro-model h3 {
     text-align: center;
     color: var(--secundario);
 }
-.card-livro-model strong{
+
+.card-livro-model strong {
     margin-top: 2%;
     text-align: justify;
     width: 90%;
+    font-style: italic;
+    font-weight: 400;
+}
+
+.card-livro-model a {
+    color: var(--secundario);
+    font-weight: 700;
 }
 
 

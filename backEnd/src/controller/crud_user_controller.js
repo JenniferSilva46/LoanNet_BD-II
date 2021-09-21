@@ -125,7 +125,7 @@ const loginUser = async (req, res) => {
                 const token = jwt.sign({
                     userId: user[0]._id
                 }, SECRET, {
-                    expiresIn: 240
+                    expiresIn: 14400
                 })
                 //sessionStorage.setItem('token', token)
                 localStorage.setItem('token', token);

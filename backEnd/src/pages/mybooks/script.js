@@ -25,14 +25,10 @@ const createBook = (data) => {
     titulo.textContent = element.title;
     const sinopse = document.createElement("strong");
     sinopse.textContent = element.synopsis;
-    const inputDevolution = document.createElement("input");
-    inputDevolution.type = "checkbox";
-    inputDevolution.classList.add("input-devolution");
     document.querySelector(".livros").appendChild(cardlivro);
     cardlivro.appendChild(img);
     cardlivro.appendChild(titulo);
     cardlivro.appendChild(sinopse);
-    cardlivro.appendChild(inputDevolution);
     cardlivro.appendChild(id);
     id.classList.add("id-livro");
     cardlivro.classList.add("card-livro");

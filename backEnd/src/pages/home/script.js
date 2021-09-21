@@ -45,7 +45,7 @@ const createBookDetail = (salvo) => {
     const buttonDetail = document.createElement('button');
     //    buttonDetail.setAttribute('onclick')
     console.log(salvo);
-    
+
 
     buttonDetail.textContent = "X"
     document.querySelector('.livros').appendChild(bodyDetail);
@@ -55,7 +55,7 @@ const createBookDetail = (salvo) => {
     document.querySelector(".body-detail").style.display = "block";
     buttonDetail.addEventListener('click', createModel);
     const titleMap = document.createElement('h4');
-    titleMap.textContent="Localição do Usuário, clique no marcador para aproximar"
+    titleMap.textContent = "Localição do Usuário, clique no marcador para aproximar"
     bodyDetail.appendChild(titleMap)
     const mapGoogle = document.createElement('div');
     bodyDetail.appendChild(mapGoogle);
@@ -81,27 +81,29 @@ const structModel = (obj) => {
     const img = document.createElement('img');
     const titulo = document.createElement('h3');
     const nameContact = document.createElement('h3');
-    const contact = document.createElement('h3');
+    const contact = document.createElement('a');
     const author = document.createElement('h3');
     const genre = document.createElement('h3');
     const sinopse = document.createElement('strong');
     img.src = obj.image
     titulo.textContent = "Título: " + obj.title
     nameContact.textContent = "Nome para contato: " + obj.namecontact
+    contact.href = "https://api.whatsapp.com/send?phone=+55" + obj.contact
     contact.textContent = "Telefone: " + obj.contact
+    //<a href={"https://api.whatsapp.com/send?phone=+55"+obj.TELEFONE} target="z-index">
     author.textContent = "Autor: " + obj.author
     genre.textContent = "Género: " + obj.genre
     sinopse.textContent = "Sinopse: " + obj.synopsis
     document.querySelector('.body-detail').appendChild(cardlivro);
     cardlivro.appendChild(img);
     cardlivro.appendChild(titulo);
-    cardlivro.appendChild(nameContact);
-    cardlivro.appendChild(contact);
     cardlivro.appendChild(author);
     cardlivro.appendChild(genre);
+    cardlivro.appendChild(nameContact);
+    cardlivro.appendChild(contact);
     cardlivro.appendChild(sinopse);
     cardlivro.classList.add("card-livro-model");
-    
+
 }
 
 const initMap = (obj) => {
@@ -123,13 +125,13 @@ const initMap = (obj) => {
         // 3 seconds after the center of the map has changed, pan back to the
         // marker.
         window.setTimeout(() => {
-          map.panTo(marker.getPosition());
+            map.panTo(marker.getPosition());
         }, 3000);
-      });
-      marker.addListener("click", () => {
+    });
+    marker.addListener("click", () => {
         map.setZoom(8);
         map.setCenter(marker.getPosition());
-      });
-    
+    });
+
 
 }

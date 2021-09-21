@@ -59,6 +59,7 @@ function save() {
     })
     .then((response) => {
       alert("Inserido!");
+      window.location.href = "file:///home/jhenniferjs/Documentos/atividades-disciplinas-2021.1/bdII/LoanNet_BD-II/backEnd/src/pages/mybooks/mybooks.html"
     })
     .catch((error) => alert("Falha ao salvar!"));
 }
