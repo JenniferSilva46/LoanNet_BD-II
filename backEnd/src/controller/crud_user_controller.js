@@ -23,7 +23,6 @@ const createUser = async (req, res) => {
         phone: req.body.phone
     }
     userObj.password = await gerarHash(userObj.password);
-    console.log(userObj.password);
     try {
         const users = clientMongo.db(`${process.env.MONGO_DATABASE}`).collection('user');
         await users.insertOne(userObj).then(() => {
@@ -42,7 +41,6 @@ const getUser = async (req, res) => {
         const filter = {
             email: req.params.email
         };
-        console.log(filter);
         const user = []
         await users.find(filter).forEach(obj => user.push(obj));
         user[0].password = undefined;
@@ -127,11 +125,10 @@ const loginUser = async (req, res) => {
                 const token = jwt.sign({
                     userId: user[0]._id
                 }, SECRET, {
-                    expiresIn: 14400
+                    expiresIn: 240
                 })
                 //sessionStorage.setItem('token', token)
                 localStorage.setItem('token', token);
-                console.log(localStorage.getItem('token'));
                 return res.json({
                     auth: true,
                     email: filter.email,
@@ -169,7 +166,6 @@ const getUserId = async (req, res) => {
         const filter = {
             _id: idUser
         };
-        console.log(filter);
         const user = []
         await users.find().forEach(obj => user.push(obj));
 
