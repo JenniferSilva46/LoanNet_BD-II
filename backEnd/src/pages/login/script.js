@@ -23,8 +23,7 @@ const fetchData = (obj) => {
                 localStorage.setItem("token", data.token);
                 alert("Logado com sucesso!");
                 window.location.href = "file:///home/jhenniferjs/Documentos/atividades-disciplinas-2021.1/bdII/LoanNet_BD-II/backEnd/src/pages/home/home.html"
-            } else if (data) {
-                alert(data)
+
             }
         })
 }
