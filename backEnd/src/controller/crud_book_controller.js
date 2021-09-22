@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 SECRET = process.env.SECRET;
 
 const createdBook = async (request, response) => {
+
     let id;
     //Verificando se o token do usuário é valido 
     const token = localStorage.getItem('token');
@@ -28,6 +29,7 @@ const createdBook = async (request, response) => {
         lat,
         lng,
     } = request.body;
+
     await client.query(`INSERT INTO book (id_user, image, title, author, nameContact, contact,  genre, synopsis, localization)
     VALUES ('${id_user}', '${image}', '${title}', '${author}', '${nameContact}','${contact}','${genre}', '${synopsis}', ST_GeomFromText('POINT(${lat} ${lng})'))`, (err, results) => {
         if (err) {
@@ -35,9 +37,12 @@ const createdBook = async (request, response) => {
             console.log(err);
             return;
         }
-        response.status(200).send('Inserido');
+        response.status(200).send({
+            message: "Inserted"
+        });
     });
 }
+
 
 const getBook = async (request, response) => {
 
@@ -53,7 +58,6 @@ const getBook = async (request, response) => {
         id = request.userId;
     })
    
-
     const id_user = id.toString();
 
     await client.query('SELECT * FROM Book WHERE id_user = $1',
@@ -73,6 +77,8 @@ const getBook = async (request, response) => {
 
         });
 }
+
+
 const getAllBook = async (request, response) => {
 
     await client.query('SELECT id_user, image, title, author, nameContact, contact,  genre, synopsis, ST_x(localization), ST_y(localization) FROM book',
@@ -96,20 +102,18 @@ const getAllBook = async (request, response) => {
 
 const updateBook = async (request, response) => {
 
-
     let id;
     //Verificando se o token do usuário é valido 
     const token = request.headers['x-access-token'];
     await jwt.verify(token, SECRET, (err, decoded) => {
         if (err) return response.status(401).json({
-            message: 'Token inválido'
+            message: 'Invalid token'
         }).end;
 
         request.userId = decoded.userId;
         id = request.userId;
 
     })
-    // //falta o id_user
 
     const id_user = id.toString();
 
@@ -141,27 +145,23 @@ const updateBook = async (request, response) => {
 };
 
 
-
 const deleteBook = async (request, response) => {
-
 
     let id;
     //Verificando se o token do usuário é valido 
     const token = request.headers['x-access-token'];
     await jwt.verify(token, SECRET, (err, decoded) => {
         if (err) return response.status(401).json({
-            message: 'Token inválido'
+            message: 'Invalid token'
         }).end;
 
         request.userId = decoded.userId;
         id = request.userId;
 
     })
-    // //falta o id_user
 
     const id_user = id.toString();
     console.log(id_user);
-
 
     await client.query('DELETE FROM Book WHERE id_user = $1', [id_user], (err, results) => {
         if (err) {

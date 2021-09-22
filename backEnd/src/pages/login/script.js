@@ -1,4 +1,4 @@
-const button = document.querySelector('#logar');
+const button = document.querySelector('#log');
 
 button.addEventListener("click", event => {
     const obj = {

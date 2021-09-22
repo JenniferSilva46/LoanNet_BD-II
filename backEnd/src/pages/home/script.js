@@ -7,7 +7,7 @@ let center = {
 };
 
 
-const buscaLivro = () => {
+const searchBook = () => {
     fetch("http://localhost:8080/book/getAll", {})
         .then(res => res.json())
         .then(data => {
@@ -15,40 +15,39 @@ const buscaLivro = () => {
         })
 }
 
-buscaLivro()
+searchBook()
 
 const createBook = (data) => {
     data.forEach(element => {
-        const cardlivro = document.createElement('div')
+        const cardbook = document.createElement('div')
         const img = document.createElement('img')
         img.src = element.image
-        const titulo = document.createElement('h3')
-        titulo.textContent = element.title
+        const title = document.createElement('h3')
+        title.textContent = element.title
         const sinopse = document.createElement('strong')
         sinopse.textContent = element.synopsis
-        document.querySelector('.livros').appendChild(cardlivro)
-        cardlivro.appendChild(img)
-        cardlivro.appendChild(titulo)
-        cardlivro.appendChild(sinopse)
-        cardlivro.classList.add("card-livro");
+        document.querySelector('.books').appendChild(cardbook)
+        cardbook.appendChild(img)
+        cardbook.appendChild(title)
+        cardbook.appendChild(sinopse)
+        cardbook.classList.add("card-book");
 
         img.onclick = function () {
-            const salvo = element;
-            createBookDetail(salvo);
+            const save = element;
+            createBookDetail(save);
         }
 
     });
 }
 
-const createBookDetail = (salvo) => {
+const createBookDetail = (save) => {
     const bodyDetail = document.createElement('div');
     const buttonDetail = document.createElement('button');
-    //    buttonDetail.setAttribute('onclick')
-    console.log(salvo);
+
 
 
     buttonDetail.textContent = "X"
-    document.querySelector('.livros').appendChild(bodyDetail);
+    document.querySelector('.books').appendChild(bodyDetail);
     buttonDetail.classList.add("button-model");
     bodyDetail.classList.add("body-detail");
     bodyDetail.appendChild(buttonDetail);
@@ -62,22 +61,22 @@ const createBookDetail = (salvo) => {
     mapGoogle.classList.add("map");
 
 
-    structModel(salvo);
-    initMap(salvo);
+    structModel(save);
+    initMap(save);
 }
 
 const createModel = () => {
     const detail = document.querySelector(".body-detail");
     if (document.querySelector(".body-detail").style.display == "block") {
         document.querySelector(".body-detail").style.display = "none";
-        document.querySelector('.livros').removeChild(detail);
+        document.querySelector('.books').removeChild(detail);
     } else {
         document.querySelector(".body-detail").style.display = "block";
     }
 }
 
 const structModel = (obj) => {
-    const cardlivro = document.createElement('div');
+    const cardbook = document.createElement('div');
     const img = document.createElement('img');
     const titulo = document.createElement('h3');
     const nameContact = document.createElement('h3');
@@ -90,19 +89,18 @@ const structModel = (obj) => {
     nameContact.textContent = "Nome para contato: " + obj.namecontact
     contact.href = "https://api.whatsapp.com/send?phone=+55" + obj.contact
     contact.textContent = "Telefone: " + obj.contact
-    //<a href={"https://api.whatsapp.com/send?phone=+55"+obj.TELEFONE} target="z-index">
     author.textContent = "Autor: " + obj.author
     genre.textContent = "Género: " + obj.genre
     sinopse.textContent = "Sinopse: " + obj.synopsis
-    document.querySelector('.body-detail').appendChild(cardlivro);
-    cardlivro.appendChild(img);
-    cardlivro.appendChild(titulo);
-    cardlivro.appendChild(author);
-    cardlivro.appendChild(genre);
-    cardlivro.appendChild(nameContact);
-    cardlivro.appendChild(contact);
-    cardlivro.appendChild(sinopse);
-    cardlivro.classList.add("card-livro-model");
+    document.querySelector('.body-detail').appendChild(cardbook);
+    cardbook.appendChild(img);
+    cardbook.appendChild(titulo);
+    cardbook.appendChild(author);
+    cardbook.appendChild(genre);
+    cardbook.appendChild(nameContact);
+    cardbook.appendChild(contact);
+    cardbook.appendChild(sinopse);
+    cardbook.classList.add("card-book-model");
 
 }
 

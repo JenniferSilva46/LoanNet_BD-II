@@ -4,40 +4,40 @@ let arrayID = [];
 let arrayEmailLoan = [];
 let objMatch;
 let isBoolean = false;
-const buscaLivro = () => {
+const fetchBooks = () => {
   fetch("http://localhost:8080/book/getBook", {})
     .then((res) => res.json())
     .then((data) => {
       createBook(data);
     });
 };
-buscaLivro();
+fetchBooks();
 
 const createBook = (data) => {
   data.forEach((element) => {
-    const cardlivro = document.createElement("div");
+    const cardBook = document.createElement("div");
     const id = document.createElement("spam");
     id.type = "text";
     id.textContent = element.id_book;
     const img = document.createElement("img");
     img.src = element.image;
-    const titulo = document.createElement("h3");
-    titulo.textContent = element.title;
+    const title = document.createElement("h3");
+    title.textContent = element.title;
     const sinopse = document.createElement("strong");
     sinopse.textContent = element.synopsis;
-    document.querySelector(".livros").appendChild(cardlivro);
-    cardlivro.appendChild(img);
-    cardlivro.appendChild(titulo);
-    cardlivro.appendChild(sinopse);
-    cardlivro.appendChild(id);
-    id.classList.add("id-livro");
-    cardlivro.classList.add("card-livro");
-    titulo.classList.add("titulo-livro");
+    document.querySelector(".books").appendChild(cardBook);
+    cardBook.appendChild(img);
+    cardBook.appendChild(title);
+    cardBook.appendChild(sinopse);
+    cardBook.appendChild(id);
+    id.classList.add("id-book");
+    cardBook.classList.add("card-book");
+    title.classList.add("title-book");
 
     img.onclick = function () {
-      const salvo = element;
-      dataObj(salvo);
-      displayInput(salvo);
+      const saved = element;
+      dataObj(saved);
+      displayInput(saved);
       document.querySelector("#btn-conf").style.display = "none";
     };
   });
@@ -48,7 +48,6 @@ const displayInput = (obj) => {
   const buttonEmail = document.querySelector("#buttonEmail");
   if (document.querySelector("#email").style.display == "block") {
     document.querySelector("#email").style.display = "none";
-    // document.querySelector('.livros').removeChild(detail);
   } else {
     document.querySelector("#email").style.display = "block";
     buttonEmail.onclick = () => {
@@ -65,7 +64,6 @@ const displayButton = (obj) => {
   const buttonConf = document.querySelector("#buttonConf");
   if (document.querySelector("#btn-conf").style.display == "block") {
     document.querySelector("#btn-conf").style.display = "none";
-    // document.querySelector('.livros').removeChild(detail);
   } else {
     document.querySelector("#btn-conf").style.display = "block";
     const email = document.querySelector("#emailUser");
@@ -78,12 +76,12 @@ const displayButton = (obj) => {
 }
 
 //criando obj do remetente
-const dataObj = (salvo) => {
+const dataObj = (saved) => {
   const obj = {
-    idUser: salvo.id_user,
-    nameUser: salvo.namecontact,
-    idBook: salvo.id_book,
-    titleBook: salvo.title,
+    idUser: saved.id_user,
+    nameUser: saved.namecontact,
+    idBook: saved.id_book,
+    titleBook: saved.title,
   };
   objAddMatch = [{
     idBook: obj.idBook
@@ -168,16 +166,16 @@ const createAddLoan = () => {
 const loanVerifyc = () => {
   document.querySelector(".id-devolution").style.display = "block";
   document.querySelector(".button-devolution").style.display = "block";
-  const idRemove = document.querySelector(".id-livro");
-  const titleRemove = document.querySelector(".titulo-livro");
-  const livros = document.querySelectorAll(".livros");
-  livros.forEach((element) => {
-    const livro = document.querySelectorAll(".card-livro");
+  const idRemove = document.querySelector(".id-book");
+  const titleRemove = document.querySelector(".title-book");
+  const books = document.querySelectorAll(".books");
+  books.forEach((element) => {
+    const livro = document.querySelectorAll(".card-book");
     livro.forEach((element) => {
-      const id = document.querySelector(".id-livro").innerText
-      idRemove.classList.remove("id-livro");
-      const titleBook = document.querySelector(".titulo-livro").innerText
-      titleRemove.classList.remove("titulo-livro");
+      const id = document.querySelector(".id-book").innerText
+      idRemove.classList.remove("id-book");
+      const titleBook = document.querySelector(".title-book").innerText
+      titleRemove.classList.remove("title-book");
       arrayLoan.forEach(function (obj, index) {
         // console.log(arrayLoan[index].idBook + "id img" + arrayID[index]);
         if (arrayID[index] != arrayLoan[index].idBook && id == arrayLoan[index].idBook) {
@@ -189,10 +187,9 @@ const loanVerifyc = () => {
     console.log(arrayID);
     console.log(arrayEmailLoan);
   })
-  idRemove.classList.add("id-livro");
-  titleRemove.classList.add("titulo-livro");
+  idRemove.classList.add("id-book");
+  titleRemove.classList.add("title-book");
 
-  console.log(livros[0]);
   const inputDevolution = document.querySelector(".id-devolution");
   const listLoan = document.createElement("ul");
   const listLoanLi = document.createElement("li");
@@ -234,7 +231,6 @@ buttonDevolution.addEventListener("click", event => {
     alert("Livros disponiveis para emprestimo!");
     if (document.querySelector(".id-devolution").style.display == "block") {
       document.querySelector(".id-devolution").style.display = "none";
-      // document.querySelector('.livros').removeChild(detail);
     } else {
       document.querySelector(".id-devolution").style.display = "block";
     }

@@ -127,7 +127,6 @@ const loginUser = async (req, res) => {
                 }, SECRET, {
                     expiresIn: 14400
                 })
-                //sessionStorage.setItem('token', token)
                 localStorage.setItem('token', token);
                 return res.json({
                     auth: true,
@@ -179,46 +178,6 @@ const getUserId = async (req, res) => {
         res.send(err)
     }
 };
-
-
-// const getUserId = async (req, res) =>{
-
-//     try{
-//         const users = clientMongo.db(`${process.env.MONGO_DATABASE}`).collection('user');
-//         const filter = {
-//             email: req.body.email
-//         };
-
-//         const user = []
-//         await users.find(filter).forEach(obj => user.push(obj));
-//         if (user.length > 0) {
-//             const teste = user[0]._id
-//             console.log(teste.toString())
-//             return teste.toString()
-//         }
-//     } catch (err) {
-//         res.send(err);
-//     }
-// }
-
-// async function getUserId(email) {
-//     try {
-//         const users = clientMongo.db(`${process.env.MONGO_DATABASE}`).collection('user');
-//         const filter = {
-//             email: email
-//         };
-
-//         const user = []
-//         await users.find(filter).forEach(obj => user.push(obj));
-//         if (user.length > 0) {
-//             const teste = user[0]._id
-//             console.log(teste.toString())
-//             return teste.toString()
-//         }
-//     } catch (err) {
-//         return err
-//     }
-// }
 
 module.exports = {
     createUser,

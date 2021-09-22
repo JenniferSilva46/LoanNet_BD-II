@@ -1,6 +1,3 @@
-// import fetchData from '../login/script';
-
-// console.log(fetchData)
 let map;
 let marker;
 
@@ -61,5 +58,5 @@ function save() {
       alert("Inserido!");
       window.location.href = "file:///home/jhenniferjs/Documentos/atividades-disciplinas-2021.1/bdII/LoanNet_BD-II/backEnd/src/pages/mybooks/mybooks.html"
     })
-    .catch((error) => alert("Falha ao salvar!"));
+    .catch((error) => alert("Falha ao salvar"));
 }

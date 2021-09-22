@@ -42,7 +42,7 @@ a {
 
 }
 
-.nav-pesquisa {
+.nav-search{
     display: flex;
     justify-content: flex-end;
     margin-top: 1.5%;
@@ -74,13 +74,13 @@ a {
 
 }
 
-.linha {
+.line {
     width: 100%;
     height: 2px;
     background-color: var(--secundario);
 }
 
-.nav-pesquisa form input {
+.nav-search form input {
     font-family: sans-serif;
     font-size: 1rem;
     background: transparent;
@@ -97,19 +97,19 @@ a {
     color: #76323F;
 }
 
-.nav-pesquisa form img {
+.nav-search form img {
     height: 15px;
 }
 
-.nav-pesquisa form img:hover {
+.nav-search form img:hover {
     cursor: pointer;
 }
 
-.nav-pesquisa form input:focus {
+.nav-search form input:focus {
     border-color: var(--secundario);
 }
 
-.page-titulo {
+.page-title {
     margin-top: 2%;
     margin-bottom: 2%;
     display: flex;
@@ -118,11 +118,11 @@ a {
     align-items: center;
 }
 
-.page-titulo p {
+.page-title p {
     color: var(--terceario);
 }
 
-.livros {
+.books {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -131,7 +131,7 @@ a {
     flex-wrap: wrap;
 }
 
-.card-livro {
+.card-book {
     border-radius: 10px;
     box-shadow: 0px 4px 10px #35484f;
     display: flex;
@@ -142,7 +142,7 @@ a {
     margin-top: 3rem;
 }
 
-.card-livro img {
+.card-book img {
     cursor: pointer;
     height: 300px;
     width: 250px;
@@ -150,12 +150,12 @@ a {
     border-radius: 30px;
 }
 
-.card-livro h3 {
+.card-book h3 {
     color: var(--secundario);
     text-align: center;
 }
 
-.card-livro strong {
+.card-book strong {
     width: 90%;
     margin-bottom: 2%;
     text-align: justify;
@@ -200,7 +200,7 @@ a {
 
 }
 
-.card-livro-model {
+.card-book-model {
     border-radius: 10px;
     box-shadow: 0px 4px 4px #35484f;
     width: 70%;
@@ -213,17 +213,17 @@ a {
     margin-left: 15%;
 }
 
-.card-livro-model img {
+.card-book-model img {
     height: 300px;
     width: 250px;
 }
 
-.card-livro-model h3 {
+.card-book-model h3 {
     text-align: center;
     color: var(--secundario);
 }
 
-.card-livro-model strong {
+.card-book-model strong {
     margin-top: 2%;
     text-align: justify;
     width: 90%;
@@ -231,7 +231,7 @@ a {
     font-weight: 400;
 }
 
-.card-livro-model a {
+.card-book-model a {
     color: var(--secundario);
     font-weight: 700;
 }
